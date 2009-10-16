@@ -3,6 +3,9 @@
 
 Executor
 {
+
+	classvar <>lastString;
+	
 	*new
 	{
 		^super.new.init;
@@ -16,7 +19,7 @@ Executor
 		tBox = TextField(cmWin, Rect(10, 10, 180, 20)).focus(true)
 			.action_
 			({|txt|
-			
+				Executor.lastString = txt.string;
 				if(txt.string[0..1] == "h ",
 				{
 					txt.string.split($ )[1].interpret.openHelpFile;
@@ -33,6 +36,7 @@ Executor
 				
 				cmWin.close;
 			});
+		if(Executor.lastString.notNil, { tBox.string_(Executor.lastString); });
 		cmWin.front;
 	}
 }

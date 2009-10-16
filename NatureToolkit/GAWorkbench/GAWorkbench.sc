@@ -11,7 +11,7 @@ GAWorkbench
 	var <>randomChromosomeFunc, <>fitnessFunc, <>mutationFunc, poolSize, chromosomeSize;
 	
 	//internal state
-	var <genePool, <fitnessScores;
+	var <>genePool, <fitnessScores;
 	
 	//pluggable crossover function
 	var <>userCrossover, <>externalCrossover;
@@ -111,36 +111,74 @@ GAWorkbench
 		var tempGenePool = List.new;
 		var tempChromosome, splitPoint;
 		var tempParent1, tempParent2;
-		var offspring;
+		var offspring1, offspring2;
 		
 		if(isElitist, { tempGenePool.add(genePool[0]); });
 		
 		while({ tempGenePool.size < poolSize; },
-		{
-			if(randImmigrantProb.coin,
+		{			
+			//splitPoint = chromosomeSize.rand;
+			//kind of roulette whel selection. fitters have more chance.
+			tempParent1 = genePool[(exprand(1, poolSize) - 1).floor.asInteger];
+			tempParent2 = genePool[(exprand(1, poolSize) - 1).floor.asInteger];
+			
+			/*
+			//first child
+			offspring = tempParent1[0..splitPoint] ++ 
+				tempParent2[(splitPoint+1)..chromosomeSize];
+			if(mutationProb.coin, {/*"mutation!".postln;*/ offspring = mutationFunc.value(offspring); });
+			tempGenePool.add(offspring);
+			
+			//second child
+			if(tempGenePool.size < poolSize,
 			{
-				tempGenePool.add(randomChromosomeFunc.value);
-			},
-			{
-				splitPoint = chromosomeSize.rand;
-				//kind of roulette whel selection. fitters have more chance.
-				tempParent1 = genePool[(exprand(1, poolSize) - 1).floor.asInteger];
-				tempParent2 = genePool[(exprand(1, poolSize) - 1).floor.asInteger];
-				offspring = tempParent1[0..splitPoint] ++ 
-					tempParent2[(splitPoint+1)..chromosomeSize];
-				
-				if(mutationProb.coin, { offspring = mutationFunc.value(offspring); });
-				
+				offspring = tempParent2[0..splitPoint] ++ 
+					tempParent1[(splitPoint+1)..chromosomeSize];
+				if(mutationProb.coin, {/*"mutation!".postln;*/ offspring = mutationFunc.value(offspring); });
 				tempGenePool.add(offspring);
-				
-				//hellotta slower
-				if(allowClones.not, { tempGenePool = tempGenePool.asSet.asList; });
 			});
+			*/
+			
+			#offspring1, offspring2 = this.mateParents(tempParent1, tempParent2);
+			
+			tempGenePool.add(offspring1);
+			if(tempGenePool.size < poolSize, { tempGenePool.add(offspring2); });
+			if(randImmigrantProb.coin and: { tempGenePool.size < poolSize }, { tempGenePool.add(randomChromosomeFunc.value); });
+			
+			//hellotta slower
+			if(allowClones.not, { tempGenePool = tempGenePool.asSet.asList; });
+		
 		});
 		
 		genePool = tempGenePool;
 		fitnessScores = nil ! poolSize;
 			
+	}
+	
+	mateParents
+	{|p1, p2|
+	
+		var relief = { 2.rand; } ! chromosomeSize;
+		var offspring1 = List.new, offspring2 = List.new;
+		
+		relief.do
+		({|bump, cnt|
+			
+			if(bump == 1,
+			{
+				offspring1.add(p1[cnt]);
+				offspring2.add(p2[cnt]);
+			},
+			{
+				offspring1.add(p2[cnt]);
+				offspring2.add(p1[cnt]);
+			});
+		});
+		
+		if(mutationProb.coin, { offspring1 = mutationFunc.value(offspring1); });
+		if(mutationProb.coin, { offspring2 = mutationFunc.value(offspring2); });
+		
+		^[offspring1.asArray, offspring2.asArray];	
 	}
 	
 	injectFitness
