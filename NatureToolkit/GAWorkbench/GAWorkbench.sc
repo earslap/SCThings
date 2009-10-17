@@ -102,6 +102,7 @@ GAWorkbench
 				);
 		},
 		{
+			//fitnessScores[0].reciprocal.postln;
 			this.internalCrossover;
 		});
 	}
@@ -110,7 +111,7 @@ GAWorkbench
 	{
 		var tempGenePool = List.new;
 		var tempChromosome, splitPoint;
-		var tempParent1, tempParent2;
+		var tp1, tp2, tour, tempParent1, tempParent2;
 		var offspring1, offspring2;
 		
 		if(isElitist, { tempGenePool.add(genePool[0]); });
@@ -118,26 +119,18 @@ GAWorkbench
 		while({ tempGenePool.size < poolSize; },
 		{			
 			//splitPoint = chromosomeSize.rand;
-			//kind of roulette whel selection. fitters have more chance.
-			tempParent1 = genePool[(exprand(1, poolSize) - 1).floor.asInteger];
-			tempParent2 = genePool[(exprand(1, poolSize) - 1).floor.asInteger];
+			//tournament selection with tournament size 2
+			tp1 = rrand(0, poolSize - 1);
+			tp2 = rrand(0, poolSize - 1);
+			tour = fitnessScores[[tp1, tp2]];
 			
-			/*
-			//first child
-			offspring = tempParent1[0..splitPoint] ++ 
-				tempParent2[(splitPoint+1)..chromosomeSize];
-			if(mutationProb.coin, {/*"mutation!".postln;*/ offspring = mutationFunc.value(offspring); });
-			tempGenePool.add(offspring);
+			if(tour[0] > tour[1], { tempParent1 = genePool[tp1]; }, { tempParent1 = genePool[tp2]; });
 			
-			//second child
-			if(tempGenePool.size < poolSize,
-			{
-				offspring = tempParent2[0..splitPoint] ++ 
-					tempParent1[(splitPoint+1)..chromosomeSize];
-				if(mutationProb.coin, {/*"mutation!".postln;*/ offspring = mutationFunc.value(offspring); });
-				tempGenePool.add(offspring);
-			});
-			*/
+			tp1 = rrand(0, poolSize - 1);
+			tp2 = rrand(0, poolSize - 1);
+			tour = fitnessScores[[tp1, tp2]];
+			
+			if(tour[0] > tour[1], { tempParent2 = genePool[tp1]; }, { tempParent2 = genePool[tp2]; });
 			
 			#offspring1, offspring2 = this.mateParents(tempParent1, tempParent2);
 			
