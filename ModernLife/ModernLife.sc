@@ -1,7 +1,7 @@
 ModernLife
 {
 	var win, view, isPlaying, playRoutine, cellSideLen, currentGrid, nextGrid,
-	numDivs, sideLen, cellSideLen, <>fps, <historySize, history, counter, averages,
+	<numDivs, sideLen, cellSideLen, <>fps, <historySize, history, counter, averages,
 	<>fadeAmount, firstRule, secondRule, <>lowThresh, <>hiThresh, <>userFunc, <currentFps,
 	oldElapsedTime, historySums;
 	
@@ -59,7 +59,7 @@ ModernLife
 						},
 						{
 							playRoutine.reset;
-							playRoutine.play(AppClock);
+							playRoutine.play(SystemClock);
 							isPlaying = true;
 							oldElapsedTime = Main.elapsedTime;
 						}); 
@@ -128,7 +128,7 @@ ModernLife
 				inf.do
 				({
 					this.gridIterate;
-					view.refresh;
+					{ view.refresh; }.defer;
 					fps.reciprocal.wait;
 				});		
 			});
