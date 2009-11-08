@@ -1,11 +1,9 @@
 //Batuhan Bozkurt 2009
 GAWorkbench
 {
-	//flags
-	var <>isElitist, <>allowClones;
 	
 	//probabilities
-	var <>mutationProb, <>randImmigrantProb;
+	var <>mutationProb, <>coProb;
 	
 	//feats
 	var <>randomChromosomeFunc, <>fitnessFunc, <>mutationFunc, poolSize, chromosomeSize;
@@ -15,8 +13,6 @@ GAWorkbench
 	
 	//pluggable crossover function
 	var <>userCrossover, <>externalCrossover;
-	
-	var <>lowerBetter;
 	
 	*new
 	{|argPoolSize, argRandomChromosomeFunc, argFitnessFunc, argMutationFunc|
@@ -39,18 +35,13 @@ GAWorkbench
 					chromosome; 
 				};
 		
-		randImmigrantProb = 0;
 		mutationProb = 0.08;
+		coProb = 0.5;
 		
 		externalCrossover = false;
 		
 		genePool = List.new;
-		fitnessScores = nil ! poolSize;
-		
-		isElitist = true;
-		allowClones = true;
-		
-		lowerBetter = false;
+		fitnessScores = nil ! poolSize;		
 		
 		this.initGenePool;
 		this.rateFitness;
@@ -78,14 +69,9 @@ GAWorkbench
 		});
 		
 		tempOrder = fitnessScores.order;
-		fitnessScores = fitnessScores[tempOrder];
-		genePool = genePool[tempOrder];
+		fitnessScores = fitnessScores[tempOrder].reverse;
+		genePool = genePool[tempOrder].reverse;
 		
-		if(lowerBetter == false,
-		{
-			fitnessScores = fitnessScores.reverse;
-			genePool = genePool.reverse;
-		});
 	}
 	
 	crossover
@@ -95,10 +81,7 @@ GAWorkbench
 			genePool = userCrossover.value
 				(
 					genePool, 
-					isElitist, 
-					mutationProb, 
-					randImmigrantProb, 
-					allowClones
+					mutationProb				
 				);
 		},
 		{
@@ -113,37 +96,46 @@ GAWorkbench
 		var tempChromosome, splitPoint;
 		var tp1, tp2, tour, tempParent1, tempParent2;
 		var offspring1, offspring2;
+		var tourPool = (0 .. (poolSize - 1)).asList;
 		
-		if(isElitist, { tempGenePool.add(genePool[0]); });
+		//tempGenePool.add(genePool[0]);
 		
 		while({ tempGenePool.size < poolSize; },
 		{			
 			//splitPoint = chromosomeSize.rand;
 			//tournament selection with tournament size 2
-			tp1 = rrand(0, poolSize - 1);
-			tp2 = rrand(0, poolSize - 1);
+			//tourPool.size.postln;
+			
+			tp1 = tourPool.choose;
+			tourPool.remove(tp1);
+			tp2 = tourPool.choose;
+			tourPool.remove(tp2);
+						
 			tour = fitnessScores[[tp1, tp2]];
 			
 			if(tour[0] > tour[1], { tempParent1 = genePool[tp1]; }, { tempParent1 = genePool[tp2]; });
 			
-			tp1 = rrand(0, poolSize - 1);
-			tp2 = rrand(0, poolSize - 1);
+			tp1 = tourPool.choose;
+			tourPool.remove(tp1);
+			tp2 = tourPool.choose;
+			tourPool.remove(tp2);
+			
 			tour = fitnessScores[[tp1, tp2]];
 			
 			if(tour[0] > tour[1], { tempParent2 = genePool[tp1]; }, { tempParent2 = genePool[tp2]; });
 			
 			#offspring1, offspring2 = this.mateParents(tempParent1, tempParent2);
 			
-			tempGenePool.add(offspring1);
+			if(tempGenePool.size < poolSize, { tempGenePool.add(offspring1); });
 			if(tempGenePool.size < poolSize, { tempGenePool.add(offspring2); });
-			if(randImmigrantProb.coin and: { tempGenePool.size < poolSize }, { tempGenePool.add(randomChromosomeFunc.value); });
 			
-			//hellotta slower
-			if(allowClones.not, { tempGenePool = tempGenePool.asSet.asList; });
+			if(tourPool.size == 0, { tourPool = (0 .. (poolSize - 1)).asList; });
 		
 		});
-		
+		//"co finished".postln;
+		//("pool is:"++tourPool.asCompileString).postln;
 		genePool = tempGenePool;
+		//fitnessScores.reciprocal.asCompileString.postln;
 		fitnessScores = nil ! poolSize;
 			
 	}
@@ -154,24 +146,34 @@ GAWorkbench
 		var relief = { 2.rand; } ! chromosomeSize;
 		var offspring1 = List.new, offspring2 = List.new;
 		
-		relief.do
-		({|bump, cnt|
-			
-			if(bump == 1,
-			{
-				offspring1.add(p1[cnt]);
-				offspring2.add(p2[cnt]);
-			},
-			{
-				offspring1.add(p2[cnt]);
-				offspring2.add(p1[cnt]);
+		if(coProb.coin,
+		{
+			relief.do
+			({|bump, cnt|
+				
+				if(bump == 1,
+				{
+					offspring1.add(p1[cnt]);
+					offspring2.add(p2[cnt]);
+				},
+				{
+					offspring1.add(p2[cnt]);
+					offspring2.add(p1[cnt]);
+				});
 			});
+			
+			if(mutationProb.coin, { offspring1 = mutationFunc.value(offspring1); });
+			if(mutationProb.coin, { offspring2 = mutationFunc.value(offspring2); });
+			
+			^[offspring1.asArray, offspring2.asArray];		},
+		{
+			if(mutationProb.coin, { p1 = mutationFunc.value(p1); });
+			if(mutationProb.coin, { p2 = mutationFunc.value(p2); });
+			^[p1, p2];
 		});
 		
-		if(mutationProb.coin, { offspring1 = mutationFunc.value(offspring1); });
-		if(mutationProb.coin, { offspring2 = mutationFunc.value(offspring2); });
 		
-		^[offspring1.asArray, offspring2.asArray];	
+		
 	}
 	
 	injectFitness
@@ -186,14 +188,9 @@ GAWorkbench
 		{
 			fitnessScores = argFitness;
 			tempOrder = fitnessScores.order;
-			fitnessScores = fitnessScores[tempOrder];
-			genePool = genePool[tempOrder];
+			fitnessScores = fitnessScores[tempOrder].reverse;
+			genePool = genePool[tempOrder].reverse;
 			
-			if(lowerBetter == false,
-			{
-				fitnessScores = fitnessScores.reverse;
-				genePool = genePool.reverse;
-			});
 		});
 	}
 
