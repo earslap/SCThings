@@ -1,32 +1,65 @@
 MultiTouchPad
 {
-	var responder, <fingersDict, <activeBlobs, <>setAction, <>touchAction, <>untouchAction,
-		guiOn, guiWin;
+	classvar <responder, <fingersDict, <activeBlobs, <>setAction, <>touchAction, <>untouchAction,
+		guiOn, guiWin, <isRunning, <pid;
 	
-	*new
-	{
-		^super.new.init;
-	}
 	
-	init
+	*initClass
 	{
 		responder = OSCresponderNode(nil, "/tuio/2Dobj", {|...args| this.processOSC(*args); });
 		fingersDict = Dictionary.new;
 		activeBlobs = List.new;
 		guiOn = false;
+		isRunning = false;
 	}
 	
-	start
+	*start
+	{|argForce|
+	
+		if(isRunning == false or: { argForce == \force; },
+		{
+			if(argForce == \force, { responder.remove; }); //in case...
+			
+			"killall tongsengmod".unixCmd
+				({|res|
+					
+					if(res == 0,
+					{
+						"A dangling tongsengmod process was found and terminated.".postln;
+					});
+					
+					pid = ("tongsengmod localhost" + NetAddr.langPort.asString).unixCmd
+					({|res|
+						
+						if(res == 127,
+						{
+							"tongsengmod executable not found. See help.".error;
+						});
+					});
+				});
+			
+			responder.add;
+			isRunning = true;
+		},
+		{
+			"MultiTouchPad is already active and running. Try MultiTouchPad.start(\force)".error;
+		});
+	}
+	
+	*stop
 	{
-		responder.add;
+		if(isRunning,
+		{
+			responder.remove;
+			("kill -1" + pid.asString).unixCmd;
+			isRunning = false;
+		},
+		{
+			"MultiTouchPad isn't running.".error;
+		});
 	}
 	
-	stop
-	{
-		responder.remove;
-	}
-	
-	processOSC
+	*processOSC
 	{|time, responder, msg|
 	
 		//msg.postln;
@@ -68,7 +101,7 @@ MultiTouchPad
 		{
 			var curID = msg[2];
 			var xys = msg[4..6];
-			if(fingersDict.at(curID).isNil, { "this should never happen".postln; });
+			if(fingersDict.at(curID).isNil, { "MultiTouchPad: bug? this should never happen.".postln; });
 			if(fingersDict.at(curID) == -1, { touchAction.value(curID, xys); });
 			fingersDict.put(curID, xys);
 			setAction.value(curID, xys);
@@ -77,7 +110,7 @@ MultiTouchPad
 		});
 	}
 	
-	gui
+	*gui
 	{
 		var view;
 		guiWin = Window("MultiTouchPad", Rect(100, 100, 525, 375)).onClose_({ guiOn = false; });
@@ -105,5 +138,12 @@ MultiTouchPad
 			});
 		guiOn = true;
 		guiWin.front;
+	}
+	
+	*resetActions
+	{
+		touchAction = {};
+		untouchAction = {};
+		setAction = {};
 	}
 }
