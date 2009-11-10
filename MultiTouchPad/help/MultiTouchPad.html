@@ -14,21 +14,19 @@ p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
 p.p5 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; min-height: 12.0px}
 p.p6 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica}
 p.p7 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica; min-height: 14.0px}
-p.p8 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #0000bf}
-p.p9 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #bf0000}
+p.p8 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #0910ba}
+p.p9 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #a81914}
 p.p10 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 14.0px Helvetica}
-p.p11 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #000000}
-p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #000000}
-p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0000bf}
-p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #000000; min-height: 12.0px}
+p.p11 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0910ba}
 span.s1 {font: 18.0px Helvetica}
-span.s2 {color: #0000ff}
-span.s3 {color: #1311bf}
-span.s4 {color: #000000}
-span.s5 {color: #0000bf}
-span.s6 {font: 12.0px Helvetica; color: #000000}
-span.s7 {font: 12.0px Helvetica}
-span.s8 {color: #007300}
+span.s2 {color: #0c16f9}
+span.s3 {color: #000000}
+span.s4 {color: #0910ba}
+span.s5 {font: 12.0px Helvetica; color: #000000}
+span.s6 {font: 12.0px Helvetica}
+span.s7 {color: #2f710f}
 span.Apple-tab-span {white-space:pre}
 </style>
 </head>
@@ -50,8 +48,6 @@ span.Apple-tab-span {white-space:pre}
 <p class="p2"><br></p>
 <p class="p1">Tested on Leopard only so far.</p>
 <p class="p2"><br></p>
-<p class="p1"><b>See also:</b> <a href="../Core/Object.html"><span class="s3">Object</span></a> [some other help files]</p>
-<p class="p2"><br></p>
 <p class="p4"><b>Creation / Class Methods</b></p>
 <p class="p5"><br></p>
 <p class="p6"><b><span class="Apple-tab-span">	</span>*start</b></p>
@@ -66,9 +62,9 @@ span.Apple-tab-span {white-space:pre}
 <p class="p7"><b><span class="Apple-tab-span">	</span></b></p>
 <p class="p6"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>A simple GUI to see if things are working fine.</p>
 <p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
-<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>MultiTouchPad<span class="s4">.start;</span></p>
-<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>MultiTouchPad<span class="s4">.gui;</span></p>
-<p class="p9"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s5">MultiTouchPad</span><span class="s4">.stop; </span>//don't forget to stop</p>
+<p class="p8"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>MultiTouchPad<span class="s3">.start;</span></p>
+<p class="p8"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>MultiTouchPad<span class="s3">.gui;</span></p>
+<p class="p9"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s4">MultiTouchPad</span><span class="s3">.stop; </span>//don't forget to stop</p>
 <p class="p5"><br></p>
 <p class="p5"><br></p>
 <p class="p10"><b>Accessing Instance and Class Variables</b></p>
@@ -77,28 +73,28 @@ span.Apple-tab-span {white-space:pre}
 <p class="p7"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
 <p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>A function to be executed when a new finger touch is detected. The function is passed in two arguments: <b>curID</b> and <b>xys</b>. curID is a unique integer for the lifetime of a finger on the touchpad. xys is an array with three elements: [x position, y position, blob size]</p>
 <p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
-<p class="p8"><span class="s6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>MultiTouchPad<span class="s4">.start;</span></p>
-<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">MultiTouchPad</span>.resetActions;</p>
-<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">MultiTouchPad</span>.touchAction = {<span class="s5">|curID, xys|</span> curID.postln; xys.postln; };</p>
-<p class="p9"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s5">MultiTouchPad</span><span class="s4">.stop; </span>//don't forget to stop</p>
+<p class="p8"><span class="s5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>MultiTouchPad<span class="s3">.start;</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">MultiTouchPad</span>.resetActions;</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">MultiTouchPad</span>.touchAction = {<span class="s4">|curID, xys|</span> curID.postln; xys.postln; };</p>
+<p class="p9"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s4">MultiTouchPad</span><span class="s3">.stop; </span>//don't forget to stop</p>
 <p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
 <p class="p6"><b><span class="Apple-tab-span">	</span>untouchAction</b></p>
 <p class="p7"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
 <p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>A function to be executed when a finger leaves the touchpad. The function is passed in the ID of the raised finger that was previously registered with touchAction.</p>
 <p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
-<p class="p8"><span class="s6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>MultiTouchPad<span class="s4">.start;</span></p>
-<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">MultiTouchPad</span>.resetActions;</p>
-<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">MultiTouchPad</span>.untouchAction = {<span class="s5">|curID|</span> curID.postln; };</p>
-<p class="p9"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s5">MultiTouchPad</span><span class="s4">.stop; </span>//don't forget to stop</p>
+<p class="p8"><span class="s5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>MultiTouchPad<span class="s3">.start;</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">MultiTouchPad</span>.resetActions;</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">MultiTouchPad</span>.untouchAction = {<span class="s4">|curID|</span> curID.postln; };</p>
+<p class="p9"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s4">MultiTouchPad</span><span class="s3">.stop; </span>//don't forget to stop</p>
 <p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
 <p class="p6"><b><span class="Apple-tab-span">	</span>setAction</b></p>
 <p class="p7"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
 <p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>A function to be executed when fingers move on the touchpad surface. The function is passed in two arguments: curID and xys. curID is a unique integer for the lifetime of a finger on the touchpad. xys is an array with three elements: [x position, y position, blob size]</p>
 <p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
-<p class="p8"><span class="s6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>MultiTouchPad<span class="s4">.start;</span></p>
-<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">MultiTouchPad</span>.resetActions;</p>
-<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">MultiTouchPad</span>.setAction = {<span class="s5">|curID, xys|</span> curID.postln; xys.postln; };</p>
-<p class="p9"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s5">MultiTouchPad</span><span class="s4">.stop; </span>//don't forget to stop<span class="s7"><span class="Apple-tab-span">	</span></span><span class="s6"><span class="Apple-tab-span">	</span></span></p>
+<p class="p8"><span class="s5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>MultiTouchPad<span class="s3">.start;</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">MultiTouchPad</span>.resetActions;</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">MultiTouchPad</span>.setAction = {<span class="s4">|curID, xys|</span> curID.postln; xys.postln; };</p>
+<p class="p9"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s4">MultiTouchPad</span><span class="s3">.stop; </span>//don't forget to stop<span class="s6"><span class="Apple-tab-span">	</span></span><span class="s5"><span class="Apple-tab-span">	</span></span></p>
 <p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
 <p class="p6"><span class="Apple-tab-span">	</span><b>resetAction</b></p>
 <p class="p7"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
@@ -107,57 +103,57 @@ span.Apple-tab-span {white-space:pre}
 <p class="p10"><b>An Example:</b></p>
 <p class="p3"><br></p>
 <p class="p12">(</p>
-<p class="p13">SynthDef<span class="s4">(</span><span class="s8">\mtFun</span><span class="s4">,</span></p>
+<p class="p13">SynthDef<span class="s3">(</span><span class="s7">\mtFun</span><span class="s3">,</span></p>
 <p class="p12">{</p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="s5">arg</span> impulseFreq, oscFreq, mul, pan, distort, decay;</p>
-<p class="p14"><span class="Apple-tab-span">	</span></p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="s5">var</span> trig = <span class="s5">Impulse</span>.ar(impulseFreq);</p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="s5">var</span> snd = <span class="s5">SinOsc</span>.ar(oscFreq, 0, <span class="s5">Decay2</span>.ar(trig, 0.01, 0.2 * decay));</p>
-<p class="p14"><span class="Apple-tab-span">	</span></p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="s5">Out</span>.ar(0, <span class="s5">Pan2</span>.ar((tanh(snd * distort) / distort) * mul.lag(0.1), pan.lag(0.1)));</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="s4">arg</span> impulseFreq, oscFreq, mul, pan, distort, decay;</p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="s4">var</span> trig = <span class="s4">Impulse</span>.ar(impulseFreq);</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="s4">var</span> snd = <span class="s4">SinOsc</span>.ar(oscFreq, 0, <span class="s4">Decay2</span>.ar(trig, 0.01, 0.2 * decay));</p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="s4">Out</span>.ar(0, <span class="s4">Pan2</span>.ar((tanh(snd * distort) / distort) * mul.lag(0.1), pan.lag(0.1)));</p>
 <p class="p12">}).memStore;</p>
 <p class="p12">)</p>
-<p class="p14"><br></p>
+<p class="p3"><br></p>
 <p class="p12">(</p>
-<p class="p12"><span class="s5">var</span> sDict = <span class="s5">Dictionary</span>.new;</p>
-<p class="p14"><br></p>
-<p class="p12"><span class="s5">MultiTouchPad</span>.resetActions.start;</p>
-<p class="p12"><span class="s5">MultiTouchPad</span>.touchAction =<span class="Apple-converted-space"> </span></p>
-<p class="p13"><span class="s4"><span class="Apple-tab-span">	</span>{</span>|curID, xys|<span class="s4"><span class="Apple-converted-space"> </span></span></p>
-<p class="p14"><span class="Apple-tab-span">	</span></p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sDict.put(curID, <span class="s5">Synth</span>(<span class="s8">\mtFun</span>,<span class="Apple-converted-space"> </span></p>
+<p class="p12"><span class="s4">var</span> sDict = <span class="s4">Dictionary</span>.new;</p>
+<p class="p3"><br></p>
+<p class="p12"><span class="s4">MultiTouchPad</span>.resetActions.start;</p>
+<p class="p12"><span class="s4">MultiTouchPad</span>.touchAction =<span class="Apple-converted-space"> </span></p>
+<p class="p13"><span class="s3"><span class="Apple-tab-span">	</span>{</span>|curID, xys|<span class="s3"><span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sDict.put(curID, <span class="s4">Synth</span>(<span class="s7">\mtFun</span>,<span class="Apple-converted-space"> </span></p>
 <p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[</p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\impulseFreq</span>, [1,2,3,4,6,8,9].choose,<span class="Apple-converted-space"> </span></p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\oscFreq</span>, rrand(80, 880),</p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\mul</span>, 1 - xys[1],</p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\pan</span>, (xys[0] * 2) - 1,</p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\distort</span>, xys[2] * 8,</p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\decay</span>, xys[2]</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">\impulseFreq</span>, [1,2,3,4,6,8,9].choose,<span class="Apple-converted-space"> </span></p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">\oscFreq</span>, rrand(80, 880),</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">\mul</span>, 1 - xys[1],</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">\pan</span>, (xys[0] * 2) - 1,</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">\distort</span>, xys[2] * 8,</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">\decay</span>, xys[2]</p>
 <p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>])</p>
 <p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);</p>
 <p class="p12"><span class="Apple-tab-span">	</span>};</p>
-<p class="p12"><span class="s5">MultiTouchPad</span>.untouchAction =</p>
-<p class="p13"><span class="s4"><span class="Apple-tab-span">	</span>{</span>|curID|</p>
-<p class="p14"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p12"><span class="s4">MultiTouchPad</span>.untouchAction =</p>
+<p class="p13"><span class="s3"><span class="Apple-tab-span">	</span>{</span>|curID|</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
 <p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sDict.at(curID).free;</p>
 <p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sDict.removeAt(curID);</p>
 <p class="p12"><span class="Apple-tab-span">	</span>};</p>
-<p class="p14"><br></p>
-<p class="p13">MultiTouchPad<span class="s4">.setAction =</span></p>
-<p class="p13"><span class="s4"><span class="Apple-tab-span">	</span>{</span>|curID, xys|<span class="s4"><span class="Apple-converted-space"> </span></span></p>
-<p class="p14"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><br></p>
+<p class="p13">MultiTouchPad<span class="s3">.setAction =</span></p>
+<p class="p13"><span class="s3"><span class="Apple-tab-span">	</span>{</span>|curID, xys|<span class="s3"><span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
 <p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sDict.at(curID).set</p>
 <p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\mul</span>, 1 - xys[1],</p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\pan</span>, (xys[0] * 2) - 1,</p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\distort</span>, xys[2] * 8,</p>
-<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\decay</span>, xys[2]</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">\mul</span>, 1 - xys[1],</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">\pan</span>, (xys[0] * 2) - 1,</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">\distort</span>, xys[2] * 8,</p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">\decay</span>, xys[2]</p>
 <p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);</p>
 <p class="p12"><span class="Apple-tab-span">	</span>};</p>
-<p class="p14"><span class="Apple-tab-span">	</span></p>
-<p class="p13">MultiTouchPad<span class="s4">.gui;</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p13">MultiTouchPad<span class="s3">.gui;</span></p>
 <p class="p12">)</p>
-<p class="p14"><br></p>
-<p class="p13">MultiTouchPad<span class="s4">.stop;</span></p>
+<p class="p3"><br></p>
+<p class="p13">MultiTouchPad<span class="s3">.stop;</span></p>
 </body>
 </html>

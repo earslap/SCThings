@@ -42,7 +42,7 @@ MultiTouchPad
 			isRunning = true;
 		},
 		{
-			"MultiTouchPad is already active and running. Try MultiTouchPad.start(\force)".error;
+			"MultiTouchPad is already active and running. Try MultiTouchPad.start(\\force)".error;
 		});
 	}
 	
@@ -55,6 +55,8 @@ MultiTouchPad
 			isRunning = false;
 		},
 		{
+			responder.remove; //in case
+			"killall tongsengmod".unixCmd;
 			"MultiTouchPad isn't running.".error;
 		});
 	}
@@ -63,9 +65,12 @@ MultiTouchPad
 	{|time, responder, msg|
 	
 		//msg.postln;
+		var toRemove = List.new;
+		var curID = msg[2];
+		var xys = msg[4..6];
+		
 		if(msg[1] == 'alive',
 		{
-			var toRemove = List.new;
 			
 			activeBlobs = msg[2..];
 			fingersDict.keys.do
@@ -99,8 +104,6 @@ MultiTouchPad
 		
 		if(msg[1] == 'set',
 		{
-			var curID = msg[2];
-			var xys = msg[4..6];
 			if(fingersDict.at(curID).isNil, { "MultiTouchPad: bug? this should never happen.".postln; });
 			if(fingersDict.at(curID) == -1, { touchAction.value(curID, xys); });
 			fingersDict.put(curID, xys);
