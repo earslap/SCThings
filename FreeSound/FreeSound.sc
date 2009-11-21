@@ -198,7 +198,7 @@ FreeSound
 		
 			if(res == 1, { if(verbose, { "There was an error while trying to download file.".error; }); callbackFunc.value(this, -6); this.halt; });
 			responseHeader = String.readNew(File("/tmp/scdlresponseheader"++sampleIDBucket[argIndex]++uniqueID, "r")).replace(" ", "").replace("\n", "");
-			responseHeader = responseHeader[responseHeader.find("Location:")+9..responseHeader.find("Keep-Alive:")-2];
+			responseHeader = responseHeader[responseHeader.find("Location:")+9..].replace(13.asAscii.asString, "");
 			fileName = responseHeader[responseHeader.findBackwards("/")+1..responseHeader.size-1];
 			downloadFunc.value;
 		});
