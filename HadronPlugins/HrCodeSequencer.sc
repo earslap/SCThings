@@ -1,12 +1,12 @@
 HrCodeSequencer : HadronPlugin
 {
 
-	var window, barView, numBpm, numBpb, rewindBut, stopBut, stopFuncBut, pauseBut, playBut,
+	var window, barView, numBpm, numBpb, rewindBut, stopBut, pauseBut, playBut,
 	seqView, numBars, rulerView, zoom, zoomSlider, cursorView, shouldReRule, stopCodeDoc,
 	<tracksHolder, <tracksView, oldScrollVisibleOrigin, <rowHeight, oldBpbCount, oldBarCount,
 	<>stopFunc, numTpb, currentTpbReciprocal, consoleWin, garbageBlobs, <numRows, shouldRedrawLines;
 	var seqClock, <>oldBeat, stopSeq, playSeq, isPlaying, blobInBeats, <>idBlobDict, addBlobWin,
-	pendingJumpTo, pendingJumpBeat;
+	pendingJumpTo, pendingJumpBeat, interactDocString;
 	
 	var <>menuList;
 	var <codeBlobs;
@@ -52,12 +52,13 @@ HrCodeSequencer : HadronPlugin
 		blobInBeats = Array.fill(240, { List[]; }).asList;
 		idBlobDict = Dictionary.new;
 		
-		codeEnvirs = [Environment.new, nil];
+		codeEnvirs = [Environment.make({ ~seq = this; }), nil];
 		curEnvirIndex = 0;
 		
 		garbageBlobs = List.new;
 		
 		stopFunc = {|hadronParent, seqParent, currentBeat| };
+		interactDocString = "//Interact Doc\n";
 		
 		outerWindow.view.keyDownAction_
 		({|...args|
@@ -201,7 +202,7 @@ HrCodeSequencer : HadronPlugin
 		stopBut = HrButton(barView, Rect(475, 10, 20, 20)).states_([["[]"]])
 			.action_
 			({
-				stopFunc.value(parentApp, this, oldBeat);				playBut.valueAction_(0);			
+				codeEnvirs[curEnvirIndex].use({ stopFunc.value(parentApp, this, oldBeat); });				playBut.valueAction_(0);			
 			});
 			
 		pauseBut = HrButton(barView, Rect(500, 10, 20, 20)).states_([["II"]])
@@ -223,7 +224,7 @@ HrCodeSequencer : HadronPlugin
 				);
 			});
 			
-		stopFuncBut = Button(barView, Rect(570, 10, 80, 20)).states_([["Stop Func."]])
+		Button(barView, Rect(570, 10, 80, 20)).states_([["Stop Func."]])
 			.action_
 			({
 				var funcString;
@@ -237,6 +238,14 @@ HrCodeSequencer : HadronPlugin
 				stopCodeDoc = HrCSDocument.new(this, "Stop function", funcString, codeEnvirs[curEnvirIndex]);
 			});
 			
+		Button(barView, Rect(667, 10, 80, 20)).states_([["Interact"]])
+			.action_
+			({
+				Document.new("Live Interaction", interactDocString, envir: codeEnvirs[curEnvirIndex])
+					.promptToSave_(false)
+					.keyUpAction_({|doc| interactDocString = doc.string; })
+					.syntaxColorize;
+			});
 		
 		Button(barView, Rect(barView.bounds.width - 260, 10, 80, 20)).states_([["To Cursor"]])
 			.action_
@@ -443,7 +452,8 @@ HrCodeSequencer : HadronPlugin
 						item.lastMouseButton
 					];
 				});
-			}
+			},
+			{ interactDocString.replace("\n", 30.asAscii); }
 		];
 		
 		saveSets =
@@ -481,7 +491,8 @@ HrCodeSequencer : HadronPlugin
 					codeBlobs.last.sequenceFunc = item[11].replace(30.asAscii.asString, "\n").interpret;
 					codeBlobs.last.lastMouseButton = item[12];
 				});
-			}
+			},
+			{|argg| interactDocString = argg.replace(30.asAscii.asString, "\n"); }
 		];
 		
 		
@@ -655,7 +666,7 @@ HrCodeSequencer : HadronPlugin
 	
 	resetEnvir //for use within the application.
 	{
-		codeEnvirs[curEnvirIndex] = Environment.new;
+		codeEnvirs[curEnvirIndex] = Environment.make({ ~seq = this; });
 		codeBlobs.do({|item| codeEnvirs[curEnvirIndex].put(item.name.asSymbol, item); });
 	}
 	
@@ -1082,6 +1093,7 @@ HrCSDocument
 	init
 	{|argParentBlob, argTitle, argString, argEnvir|
 		
+		var macroStr;
 		parentBlob = argParentBlob;
 		docEnvir = argEnvir;
 		
@@ -1089,6 +1101,7 @@ HrCSDocument
 		cleanTitle = argTitle;
 		
 		myDoc = Document.new(argTitle, argString, envir: docEnvir)
+			.background_(Color.new255(241, 232, 230))
 			.promptToSave_(false)
 			.keyDownAction_
 			({|view, char, mod, unicode, keycode|
@@ -1116,7 +1129,23 @@ HrCSDocument
 							({|item| 
 								["Plug:" + item.name + item.ident, "ID:" + item.uniqueID]
 							}).do(_.postln);
-						}		
+							view.editable_(false);
+						},
+						109, //fn + m
+						{
+							if(myDoc.selectionSize != 0,
+							{
+								macroStr = HrSeqMacros(myDoc.selectedString);
+								if(macroStr != -1,
+								{
+									myDoc.selectedString = macroStr;
+								},
+								{
+									"Failed to match macro.".postln;
+								});
+							});
+							view.editable_(false);
+						}
 					);
 				});
 			})
@@ -1129,7 +1158,11 @@ HrCSDocument
 					unicode.switch
 					(
 						99, // fn + c unpressed
-						{ view.editable_(true); }			
+						{ view.editable_(true); },
+						112,
+						{ view.editable_(true); },
+						109,
+						{ view.editable_(true); }		
 					);
 				});
 			})
@@ -1156,5 +1189,70 @@ HrCSDocument
 		{//else it is HrCodeSequencer
 			parentBlob.stopFunc = myDoc.string.interpret; //parent is not blob here, but the sequencer...
 		});
+	}
+}
+
+HrSeqMacros
+{
+	var base, mArgs;
+	
+	*new
+	{|argString|
+		
+		^super.new.init(argString);
+	}
+	
+	init
+	{|macro|
+	
+		var splitted;
+	
+		splitted = this.splitMacro(macro);
+		base = splitted[0];
+		splitted.removeAt(0);
+		mArgs = splitted;
+
+		base.asSymbol.switch
+		(
+			\loopblob,
+			{
+				if(mArgs.size == 0,
+				{
+					^"if(currentBeat == (beatEnd - callInterval),\n{\n\tseqParent.jumpTo(beatStart);\n});\n"
+				});				
+			},
+			\wholes,
+			{
+				^"if(currentBeat.round(1) == currentBeat,\n{\n\t//\n});\n"
+			},
+			{ ^-1; }
+		);
+	}
+	
+	splitMacro
+	{|macro|
+	
+		var tBucket = List.new;
+		var iBucket = List.new;
+
+		macro.do
+		({|item, cnt|
+
+			if((item != 40.asAscii) and: { item != 40.asAscii; } and: { item != $, },
+			{
+				iBucket.add(item);
+				if(cnt == (macro.size - 1),
+				{
+					tBucket.add(iBucket.join);
+					iBucket = List.new;
+				});
+			},
+			{
+				tBucket.add(iBucket.join);
+				iBucket = List.new;
+			});
+		});
+		
+		^tBucket;
 	}
 }

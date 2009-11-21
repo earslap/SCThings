@@ -5,27 +5,26 @@
 <meta http-equiv="Content-Style-Type" content="text/css">
 <title></title>
 <meta name="Generator" content="Cocoa HTML Writer">
-<meta name="CocoaVersion" content="949.46">
+<meta name="CocoaVersion" content="949.54">
 <style type="text/css">
 p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
 p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
 p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
-p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0000ff}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b15e8}
 p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
 p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
 p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Helvetica}
 p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica}
 p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
-p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b15e8}
-p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #131db2}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #1b25aa}
 span.s1 {font: 18.0px Helvetica}
-span.s2 {color: #202de8}
+span.s2 {color: #2a36de}
 span.s3 {color: #000000}
-span.s4 {color: #1a27ed}
-span.s5 {color: #0c16f9}
-span.s6 {font: 12.0px Helvetica}
-span.s7 {text-decoration: underline}
-span.s8 {color: #4c6d1c}
+span.s4 {text-decoration: underline}
+span.s5 {color: #2532e3}
+span.s6 {color: #1a27ed}
+span.s7 {font: 12.0px Helvetica}
+span.s8 {color: #586b25}
 span.s9 {font: 9.0px Monaco}
 span.Apple-tab-span {white-space:pre}
 </style>
@@ -33,19 +32,19 @@ span.Apple-tab-span {white-space:pre}
 <body>
 <p class="p1"><span class="s1"><b>HrCodeSequencer<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>a sequencer that sequences code within the Hadron environment</b><span class="s1"><b><span class="Apple-tab-span">	</span></b></span></p>
 <p class="p2"><br></p>
-<p class="p1"><b>Inherits from: </b><a href="SC://Object"><span class="s2"><b>Object</b></span></a><b> : </b><a href="../../../quarks/Hadron/Help/HadronPlugin.html"><span class="s2"><b>HadronPlugin</b></span></a></p>
+<p class="p1"><b>Inherits from: </b><a href="SC://Object"><span class="s2"><b>Object</b></span></a><b> : </b><a href="../../Hadron/Help/HadronPlugin.html"><span class="s2"><b>HadronPlugin</b></span></a></p>
 <p class="p3"><br></p>
-<p class="p1">HrCodeSequencer is a "code sequencer" for the <a href="../../../quarks/Hadron/Help/Hadron.html"><span class="s2">Hadron</span></a> environment. It has a familiar track based sequencer GUI, but the items inside tracks contains sclang code which interacts with the plugins inside Hadron. The code can also interact with the parent sequencer, so you can also alter the state of the sequencer (the tempo, position of playback etc.) which yields to possibilities that are not possible with traditional sequencers (for example you can experiment with generative form, generative looping logic etc. in an intuitive manner).<span class="Apple-converted-space"> </span></p>
+<p class="p1">HrCodeSequencer is a "code sequencer" for the <a href="../../Hadron/Help/Hadron.html"><span class="s2">Hadron</span></a> environment. It has a familiar track based sequencer GUI, but the items inside tracks contains sclang code which interacts with the plugins inside Hadron. The code can also interact with the parent sequencer, so you can also alter the state of the sequencer (the tempo, position of playback etc.) which yields to possibilities that are not possible with traditional sequencers (for example you can experiment with generative form, generative looping logic etc. in an intuitive manner).<span class="Apple-converted-space"> </span></p>
 <p class="p2"><br></p>
 <p class="p1">Each code blob knows its exact position on the beat grid, and when the sequencer is running over it, it knows exactly what the current beat division the playing sequencer is in. The functions for the code blobs that share the same beat columns (i.e. that are to be executed simultaneously) are executed in top to bottom order.</p>
 <p class="p2"><br></p>
-<p class="p4"><span class="s3">See also: <a href="../../../quarks/Hadron/Help/Hadron.html">Hadron</a> <a href="HadronPlugins.html">HadronPlugins</a></span></p>
+<p class="p4"><span class="s3">See also: <a href="../../Hadron/Help/Hadron.html"><span class="s4">Hadron</span></a> <a href="HadronPlugins.html"><span class="s4">HadronPlugins</span></a></span></p>
 <p class="p2"><br></p>
 <p class="p5"><b>Known issues:</b></p>
 <p class="p6"><br></p>
-<p class="p1">[1] Unfortunately, HrCodeSequencer is not compatible with SwingOSC at this time. It heavily relies on the <a href="SC://Document"><span class="s4">Document</span></a> class for code mangling and that class is not available on other platforms other than Cocoa. In the future, I am really willing to make a SwingOSC compatible version, and I'll be glad to help anyone who intends to work on it. Other than the unsupported classes, all code is written in cross-platform compatibility in mind.</p>
+<p class="p1">[1] Unfortunately, HrCodeSequencer is not compatible with SwingOSC at this time. It heavily relies on the <a href="SC://Document"><span class="s5">Document</span></a> class for code mangling and that class is not available on other platforms other than Cocoa. In the future, I am really willing to make a SwingOSC compatible version, and I'll be glad to help anyone who intends to work on it. Other than the unsupported classes, all code is written in cross-platform compatibility in mind.</p>
 <p class="p2"><br></p>
-<p class="p1">[2] Due to a currently unaddressed <a href="SC://UserView"><span class="s4">UserView</span></a> bug in the Cocoa implementation of SC, when your sequencer view gets too big horizontally, draw operation on that view (ruler etc.) fails. This limits the maximum amount of time your sequencer can handle horizontally. There are ways around it if you need extra time (zooming out as much as possible and increasing the granularity of the sequencer, working in half time etc.) but this is annoying for sure.</p>
+<p class="p1">[2] Due to a currently unaddressed <a href="SC://UserView"><span class="s5">UserView</span></a> bug in the Cocoa implementation of SC, when your sequencer view gets too big horizontally, draw operation on that view (ruler etc.) fails. This limits the maximum amount of time your sequencer can handle horizontally. There are ways around it if you need extra time (zooming out as much as possible and increasing the granularity of the sequencer, working in half time etc.) but this is annoying for sure (update: this seems to be fixed with Snow Leopard, that might be an Apple bug).</p>
 <p class="p2"><br></p>
 <p class="p7"><b>Theory of operation:</b></p>
 <p class="p6"><br></p>
@@ -59,7 +58,7 @@ span.Apple-tab-span {white-space:pre}
 <p class="p2"><br></p>
 <p class="p1"><b>Ticks per beat:</b> The granularity of the sequencer. Should basically be a power of two. This sets the number of calls the sequencer will make to the code items on track view per beat.</p>
 <p class="p2"><br></p>
-<p class="p1"><b>The 4 transport buttons: </b>They are "rewind", "stop", "pause" and "play" respectively. The difference between pause and stop is explained below. The transport buttons are instances of <a href="../../../quarks/Hadron/widgets/Help/HrButton.html"><span class="s5">HrButton</span></a> which can do midi learn, so You can trigger them with midi controllers. See <a href="../../../quarks/Hadron/widgets/Help/HrButton.html"><span class="s5">HrButton</span></a> help to see how it is achieved.</p>
+<p class="p1"><b>The 4 transport buttons: </b>They are "rewind", "stop", "pause" and "play" respectively. The difference between pause and stop is explained below. The transport buttons are instances of <a href="../../Hadron/widgets/Help/HrButton.html"><span class="s6">HrButton</span></a> which can do midi learn, so You can trigger them with midi controllers. See <a href="../../Hadron/widgets/Help/HrButton.html"><span class="s6">HrButton</span></a> help to see how it is achieved.</p>
 <p class="p2"><br></p>
 <p class="p1"><b>Stop Func: </b>When you press this button, a <a href="SC://Document"><span class="s2">Document</span></a> will pop up with a function inside it which is passed three arguments, namely <i>hadronParent</i>, <i>seqParent</i>, <i>currentBeat</i>. When you issue "stop" on the sequencer, this function will be executed (as opposed to pause). <i>hadronParent</i> is the instance of Hadron that is running, <i>seqParent</i> is the sequencer you are working in, and <i>currentBeat</i> is the last beat the sequencer was in when you issued stop.<span class="Apple-converted-space"> </span></p>
 <p class="p2"><br></p>
@@ -68,6 +67,8 @@ span.Apple-tab-span {white-space:pre}
 <p class="p1">When you close the document window, the stop function the sequencer uses will be updated automatically. (You WON'T be presented with a save dialog, and you DON'T need to save the document. When you press the button again, you will see that the code you entered is still there. And when you save your project in Hadron, the codes will be saved inside your saved project file automatically, and will be revived when you load later on.<span class="Apple-converted-space"> </span></p>
 <p class="p2"><br></p>
 <p class="p1">If you want to update the stopFunc your sequencer instance uses without closing the document, press <b>Function + c</b>. See the keyboard shortcuts section in this help also.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Interact: </b>A Document where you can interact with the Hadron environment with code. The ~seq variable points to the parent sequencer, you can access other plugin instances and control them from here.</p>
 <p class="p2"><br></p>
 <p class="p1"><b>To Cursor: </b>This button scrolls the view to the current location of the cursor.</p>
 <p class="p2"><br></p>
@@ -110,20 +111,20 @@ span.Apple-tab-span {white-space:pre}
 <p class="p2"><br></p>
 <p class="p1">The passed in arguments:</p>
 <p class="p2"><br></p>
-<p class="p1"><b><i>hadronParent</i></b> is the <a href="../../../quarks/Hadron/Help/Hadron.html"><span class="s2">Hadron</span></a> application instance that is currently running. Not much to do with this if you don't know the internals of the Hadron system. Its nice to have direct access to it.</p>
+<p class="p1"><b><i>hadronParent</i></b> is the <a href="../../Hadron/Help/Hadron.html"><span class="s2">Hadron</span></a> application instance that is currently running. Not much to do with this if you don't know the internals of the Hadron system. Its nice to have direct access to it.</p>
 <p class="p2"><br></p>
 <p class="p1"><b><i>seqParent</i></b> is the <a href="HrCodeSequencer.html"><span class="s2">HrCodeSequencer</span></a> instance this code item belongs to. You can alter the state of the sequencer by using this variable, and you can access to the other running plugins in the system by issuing queries to this variable. Available options:</p>
 <p class="p2"><br></p>
-<p class="p9"><span class="s6"><span class="Apple-tab-span">	</span></span>seqParent.getBpm;</p>
+<p class="p9"><span class="s7"><span class="Apple-tab-span">	</span></span>seqParent.getBpm;</p>
 <p class="p1"><span class="Apple-tab-span">	</span>Returns the current bpm of the running sequencer.</p>
 <p class="p2"><span class="Apple-tab-span">	</span></p>
-<p class="p9"><span class="s6"><span class="Apple-tab-span">	</span></span>seqParent.changeBpm(argBpm);</p>
+<p class="p9"><span class="s7"><span class="Apple-tab-span">	</span></span>seqParent.changeBpm(argBpm);</p>
 <p class="p1"><span class="Apple-tab-span">	</span>Sets the bpm of the running sequencer.</p>
 <p class="p2"><span class="Apple-tab-span">	</span></p>
-<p class="p9"><span class="s6"><span class="Apple-tab-span">	</span></span>seqParent.jumpTo(argBeat);</p>
+<p class="p9"><span class="s7"><span class="Apple-tab-span">	</span></span>seqParent.jumpTo(argBeat);</p>
 <p class="p1"><span class="Apple-tab-span">	</span>Makes the sequencer jump to the specified beat.</p>
 <p class="p2"><span class="Apple-tab-span">	</span></p>
-<p class="p9"><span class="s6"><span class="Apple-tab-span">	</span></span>seqParent.givePlug(plugID);</p>
+<p class="p9"><span class="s7"><span class="Apple-tab-span">	</span></span>seqParent.givePlug(plugID);</p>
 <p class="p1"><span class="Apple-tab-span">	</span>This method provides access to the running plugins in the system, and needs some explanation.</p>
 <p class="p2"><span class="Apple-tab-span">	</span></p>
 <p class="p1"><span class="Apple-tab-span">	</span>Each plugin running in the Hadron system has its own unique ID that discerns it from the other</p>
@@ -135,7 +136,7 @@ span.Apple-tab-span {white-space:pre}
 <p class="p1"><span class="Apple-tab-span">	</span>back. There is basically two default things you can do with the instance (when you write your own plugins,</p>
 <p class="p1"><span class="Apple-tab-span">	</span>you can also add your own stuff to control too):</p>
 <p class="p2"><span class="Apple-tab-span">	</span></p>
-<p class="p1"><span class="Apple-tab-span">	</span>Each <a href="../../../quarks/Hadron/Help/HadronPlugin.html"><span class="s2">HadronPlugin</span></a> probably has a <b>modGets</b> and <b>modSets</b> variables which are kind of <a href="SC://Dictionary"><span class="s2">Dictionary</span></a>,</p>
+<p class="p1"><span class="Apple-tab-span">	</span>Each <a href="../../Hadron/Help/HadronPlugin.html"><span class="s2">HadronPlugin</span></a> probably has a <b>modGets</b> and <b>modSets</b> variables which are kind of <a href="SC://Dictionary"><span class="s2">Dictionary</span></a>,</p>
 <p class="p1"><span class="Apple-tab-span">	</span>which have modulatable parameter name -&gt; function mappings inside them. You can query the</p>
 <p class="p1"><span class="Apple-tab-span">	</span>values by using the provided console, to see how to access it and how to use it, refer to the <b>console</b></p>
 <p class="p1"><b><span class="Apple-tab-span">	</span></b>section of this help. So for example you have a plugin with id 45306, and its modGets and modSets are:</p>
@@ -144,17 +145,17 @@ span.Apple-tab-span {white-space:pre}
 <p class="p1"><span class="Apple-tab-span">	</span>modSets = Dictionary[ (level -&gt; a Function) ]</p>
 <p class="p2"><span class="Apple-tab-span">	</span></p>
 <p class="p1"><span class="Apple-tab-span">	</span>You can query the dictionaries from the console. To see more info about these variables, check the</p>
-<p class="p10"><span class="s3"><span class="Apple-tab-span">	</span><a href="../../../quarks/Hadron/Help/HadronPlugin.html"><span class="s7">HadronPlugin</span></a> and <a href="../../../quarks/Hadron/Help/Writing-Hadron-Plugins.html"><span class="s7">Writing-Hadron-Plugins</span></a> helps.</span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span><a href="../../Hadron/Help/HadronPlugin.html"><span class="s4">HadronPlugin</span></a> and <a href="../../Hadron/Help/Writing-Hadron-Plugins.html"><span class="s4">Writing-Hadron-Plugins</span></a> helps.</span></p>
 <p class="p2"><span class="Apple-tab-span">	</span></p>
 <p class="p1"><span class="Apple-tab-span">	</span>The functions in modGets Dictionary return the current value of the named control, and the modSets</p>
 <p class="p1"><span class="Apple-tab-span">	</span>Dictionary sets the value for that control (typically in 0-1 range) by using the passed in argument. So,</p>
 <p class="p1"><span class="Apple-tab-span">	</span>to get the value, we can use:</p>
 <p class="p2"><span class="Apple-tab-span">	</span></p>
-<p class="p9"><span class="s6"><span class="Apple-tab-span">	</span></span>seqParent.givePlug(43506).modGets.at(<span class="s8">\level</span>).value;</p>
+<p class="p9"><span class="s7"><span class="Apple-tab-span">	</span></span>seqParent.givePlug(43506).modGets.at(<span class="s8">\level</span>).value;</p>
 <p class="p2"><span class="Apple-tab-span">	</span></p>
 <p class="p1"><span class="Apple-tab-span">	</span>And to set that value to 0.5, we can use:</p>
 <p class="p2"><span class="Apple-tab-span">	</span></p>
-<p class="p9"><span class="s6"><span class="Apple-tab-span">	</span></span>seqParent.givePlug(43506).modSets.at(<span class="s8">\level</span>).value(0.5);</p>
+<p class="p9"><span class="s7"><span class="Apple-tab-span">	</span></span>seqParent.givePlug(43506).modSets.at(<span class="s8">\level</span>).value(0.5);</p>
 <p class="p2"><span class="Apple-tab-span">	</span></p>
 <p class="p1"><span class="Apple-tab-span">	</span>If those operations set and get the values directly from the gui widgets, you will need to put the</p>
 <p class="p1"><span class="Apple-tab-span">	</span>queries inside a <span class="s9">{ }.defer;</span> block.</p>
@@ -165,7 +166,7 @@ span.Apple-tab-span {white-space:pre}
 <p class="p1"><b><i>currentBeat</i></b> is the beat the sequencer is on when the code blob is called. It is between beatStart and beatEnd.</p>
 <p class="p1">So to infinitely loop between the start and stop points of a blob, one could say something like:</p>
 <p class="p2"><br></p>
-<p class="p11"><span class="s3">{</span>|hadronParent, seqParent, currentBeat, beatStart, beatEnd, timeBetweenCalls|<span class="s3"><span class="Apple-converted-space"> </span></span></p>
+<p class="p10"><span class="s3">{</span>|hadronParent, seqParent, currentBeat, beatStart, beatEnd, timeBetweenCalls|<span class="s3"><span class="Apple-converted-space"> </span></span></p>
 <p class="p3"><br></p>
 <p class="p9"><span class="Apple-tab-span">	</span>if(currentBeat == (beatEnd - callInterval),</p>
 <p class="p9"><span class="Apple-tab-span">	</span>{</p>
@@ -219,7 +220,7 @@ span.Apple-tab-span {white-space:pre}
 <p class="p1"><b><i>givePlug(plugID):</i></b> Returns the plugin that has the plugID. You can query its modulatable parameters and change them to see how they react from the console.<span class="Apple-converted-space"> </span></p>
 <p class="p1">Ex:<span class="Apple-converted-space"> </span></p>
 <p class="p2"><br></p>
-<p class="p9"><span class="s6"><span class="Apple-tab-span">	</span></span>givePlug(1234).modGets;</p>
+<p class="p9"><span class="s7"><span class="Apple-tab-span">	</span></span>givePlug(1234).modGets;</p>
 <p class="p9"><span class="Apple-tab-span">	</span>givePlug(1234).modGets.at(<span class="s8">\level</span>);</p>
 <p class="p9"><span class="Apple-tab-span">	</span>givePlug(1234).modSets.at(<span class="s8">\level</span>).value(0.5);</p>
 <p class="p2"><br></p>
@@ -229,10 +230,17 @@ span.Apple-tab-span {white-space:pre}
 <p class="p2"><br></p>
 <p class="p1">And some already covered methods:</p>
 <p class="p1"><i>givePlug, getBpm, changeBpm, jumpTo...</i></p>
+<p class="p2"><i></i><br></p>
+<p class="p5"><b>Macros:</b></p>
+<p class="p2"><br></p>
+<p class="p1">There are some macros you can use to code faster. Two of them are included at this time. Each macro uses a keyword, you need to select the keyword and press fn + m. The selected word transforms into a relevant code block. The current macros are:</p>
+<p class="p2"><br></p>
+<p class="p1">loopblob: inserts the code necessary to loop a code blob.</p>
+<p class="p1">wholes: The generated function is executed at whole time divisions.</p>
 <p class="p2"><br></p>
 <p class="p1"><i>---</i></p>
 <p class="p2"><br></p>
-<p class="p1">To get more info about the internals of the <a href="../../../quarks/Hadron/Help/HadronPlugin.html"><span class="s4">HadronPlugin</span></a> system, see its help.</p>
+<p class="p1">To get more info about the internals of the <a href="../../Hadron/Help/HadronPlugin.html"><span class="s5">HadronPlugin</span></a> system, see its help.</p>
 <p class="p2"><br></p>
 <p class="p1">Batuhan Bozkurt 2009</p>
 <p class="p1">http://www.earslap.com</p>
