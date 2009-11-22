@@ -20,7 +20,7 @@ FreeSoundSearch
 		contCondition = Condition.new.test_(false);
 		fileBucket = List.new;
 		
-		win = Window("FreeSound Search", Window.centerRect(300, 520), false);
+		win = Window("FreeSound Search", Rect((Window.screenBounds.width / 2) - 150, (Window.screenBounds.height / 2) - 260, 300, 520), false);
 		infoView = CompositeView(win, Rect(0, win.bounds.height - 25, win.bounds.width, 20))
 			.background_(Color.gray(0.7));
 		infoText = StaticText(win, Rect(5, infoView.bounds.top, win.bounds.width, 20))
