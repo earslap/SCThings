@@ -200,7 +200,7 @@ MoltenPlayer
 		(
 			playList = 
 				ListView(win, Rect(10, 40, 280, 150))
-					.items_(master.pieces.collect({|item, cnt| "%: % -- %".format(cnt.asString, item.nameString, item.durationString); }))
+					.items_(master.pieces.collect({|item, cnt| "%: % -- %".format((cnt + 1).asString, item.nameString, item.durationString); }))
 					.mouseDownAction_
 					({|...args|
 					
