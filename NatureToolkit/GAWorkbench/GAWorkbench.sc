@@ -6,7 +6,7 @@ GAWorkbench
 	var <>mutationProb, <>coProb;
 	
 	//feats
-	var <>randomChromosomeFunc, <>fitnessFunc, <>mutationFunc, poolSize, chromosomeSize;
+	var <>randomChromosomeFunc, <>fitnessFunc, <>mutationFunc, <poolSize, chromosomeSize;
 	
 	//internal state
 	var <>genePool, <fitnessScores;
@@ -98,14 +98,8 @@ GAWorkbench
 		var offspring1, offspring2;
 		var tourPool = (0 .. (poolSize - 1)).asList;
 		
-		//tempGenePool.add(genePool[0]);
-		
 		while({ tempGenePool.size < poolSize; },
-		{			
-			//splitPoint = chromosomeSize.rand;
-			//tournament selection with tournament size 2
-			//tourPool.size.postln;
-			
+		{		
 			tp1 = tourPool.choose;
 			tourPool.remove(tp1);
 			tp2 = tourPool.choose;
