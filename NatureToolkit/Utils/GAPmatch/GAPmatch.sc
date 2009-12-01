@@ -1,3 +1,5 @@
+//Batuhan Bozkurt 2009
+
 GAPmatch
 {
 	var <gaInstance, <>synthDef, <poolSize, <>sampleLoc,
@@ -36,7 +38,7 @@ GAPmatch
 		var tempSynthDef;
 	
 		poolSize = argPoolSize ?? { this.reportError("argPoolSize"); };
-		synthDef = argSynthDef ?? { this.reportError("argPoolSize"); };
+		synthDef = argSynthDef ?? { this.reportError("argSynthDef"); };
 		sampleLoc = argSampleLoc ?? { this.reportError("argSampleLoc"); };
 		synthParams = argSynthParams ?? { this.reportError("argSynthParams"); };
 		paramSpace = argParamSpace ?? { this.reportError("argParamSpace"); };
@@ -71,7 +73,7 @@ GAPmatch
 		
 		if(poolSize < (numThreads * servers.size),
 			{
-				"argPoolSize cannot be larger than (argNumThreads * argServers.size).".error;
+				"argPoolSize cannot be smaller than (argNumThreads * argServers.size).".error;
 				^this.halt;
 			});
 			
