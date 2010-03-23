@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="1038.25">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica}
+p.p7 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 85.0px; text-indent: -85.0px; font: 12.0px Helvetica}
+p.p9 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco}
+p.p10 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #000000}
+p.p11 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #0000cf}
+p.p12 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #737373}
+p.p13 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 14.0px Helvetica}
+p.p14 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 14.0px Helvetica; min-height: 17.0px}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #0000ff}
+span.s3 {color: #000000}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>FingerNeedle<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>gestural instrument for multitouch surface</b><span class="s1"><b><span class="Apple-tab-span">	</span></b></span></p>
+<p class="p2"><br></p>
+<p class="p1"><b>Inherits from: </b><a href="SC://Object"><span class="s2"><b>Object</b></span></a></p>
+<p class="p3"><br></p>
+<p class="p1">FingerNeedle is a gesture based instrument that is operated from a multi-touch enabled surface. In essence, it is a sampler instrument which converts sounds into square images and the performer plays rectangular portions from these images with touch. The images derived from the sounds give visual feedback to the performer about where to touch on the surface and what portion of the sound to use as a source. Unlike the standard waveform visualization, the performer is able to visually estimate the spectral characteristics of a sound and its change over time from the created image. FingerNeedle allows usage of several layers of sounds to be controlled and played back simultaneously and borrows the idea of “gesture recording” that is also present in my deQuencher[1] instrument. The recorded gestures can be post processed to be slowed down and sped up dynamically.</p>
+<p class="p2"><br></p>
+<p class="p1">The system is able to load uncompressed 16 bit mono sounds with any sample rate. A single sample in a 16 bit sound file can have 2^16 distinct values. The conversion system codes this range to shades of gray, where the lowest possible value is black and the highest possible value is white (loosely analogous with the grooves on a gramophone record), silence is pure gray, and a full amplitude sine wave is a continuous gradient between the shades of gray. Therefore, every pixel represents a single sample of a sound file. The samples are arranged inside the image in left to right, top to bottom order sequentially. This means that an image window with 800×800 resolution can contain 640000 samples (and pixels), which equals to approximately 14.5 seconds of mono audio at 44.1kHz sampling rate.</p>
+<p class="p2"><br></p>
+<p class="p1">This visualization scheme allows one to predict the spectra as well as the dynamic range from the image before hearing it the first time. This visualization scheme aids the performance and also defines the interaction method with the instrument.</p>
+<p class="p2"><br></p>
+<p class="p1">When a touch event is sensed, the instrument gets the blob size and multiplies its width and height with dynamically changeable multipliers. After that, a transparent rectangle becomes visible on the sound-image. The instrument loops/plays the highlighted portion of the sound from the preloaded buffer.</p>
+<p class="p2"><br></p>
+<p class="p1">To play a rectangular region from a buffer, I’ve developed a unit generator called “NeedleRect” that gets x/y, width and height input and its output is used as an index for another unit reading from a preloaded buffer.</p>
+<p class="p2"><br></p>
+<p class="p1">[1]: http://www.batuhanbozkurt.com/projectslab/dequencher</p>
+<p class="p2"><br></p>
+<p class="p1">FingerNeedle requires:</p>
+<p class="p1">* A MacBook / MacBook Pro with a multitouch trackpad.</p>
+<p class="p1">* A recent copy of BatUGens from sc-plugins project which includes the NeedleRect UGen.</p>
+<p class="p1">* BatLib Quark</p>
+<p class="p1">* MultiTouchPad Quark</p>
+<p class="p2"><br></p>
+<p class="p1">Recommended for fun: FreeSound Quark.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Creation / Class Methods</b></p>
+<p class="p5"><br></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>*new (argWinSize, argSPaths, argBusses)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>All arguments must be supplied.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>argWinSize </b>- Width (and height) of the desired window in pixels (Integer). Be aware that the size of the window determines the maximum duration a layer of sound can have. If this argument is 800, you'll have a 800x800 window which equals to 640000 pixels. Since each pixel represents a sample, that means that a layer can hold ~14.5 seconds of sound at 44.1kHz.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>argSPaths </b>- An array of sound file paths (array of strings).</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>argBusses </b>- Array of Busses. A stereo bus for each file is needed. All busses can point to hardware outs 0 and 1, of course.</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">(</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.boot;</p>
+<p class="p11"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>g = </span>FingerNeedle</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>400,<span class="Apple-converted-space"> </span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[</p>
+<p class="p12"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>"sounds/a11wlk01-44_1.aiff"<span class="s3">,<span class="Apple-converted-space"> </span></span></p>
+<p class="p12"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>"sounds/a11wlk01.wav"<span class="s3">,</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>],</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0!2</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>).widthMul_(1000).heightMul_(20).startAnim;</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p5"><br></p>
+<p class="p5"><br></p>
+<p class="p13"><b>Status Bar:</b></p>
+<p class="p14"><b></b><br></p>
+<p class="p1">Running the above code, you should see something like:</p>
+<p class="p1">[0/0] 1/0 wMul: 1000, hMul: 20 lSpd: 1</p>
+<p class="p2"><br></p>
+<p class="p1">The first few items (integer/integer) denote layer index/active blobs. If there is a square bracket around one, that means it is the active layer.</p>
+<p class="p2"><br></p>
+<p class="p1">wMul is the multiplier for touch width, and hMul is the multiplier for touch height.</p>
+<p class="p2"><br></p>
+<p class="p1">lSpd is the gesture playback speed for the active layer.</p>
+<p class="p2"><br></p>
+<p class="p1">All those can be changed dynamically while performing.</p>
+<p class="p2"><br></p>
+<p class="p13"><b>Keyboard Control:</b></p>
+<p class="p14"><b></b><br></p>
+<p class="p1">up arrow: select previous blob</p>
+<p class="p1">down arrow: select next blob</p>
+<p class="p1">right arrow: go to next layer</p>
+<p class="p1">left arrow: go to previous layer</p>
+<p class="p1">delete: delete selected blob</p>
+<p class="p1">k: decrease hMul</p>
+<p class="p1">i: increase hMul</p>
+<p class="p1">o: decrease wMul</p>
+<p class="p1">p: increase wMul</p>
+<p class="p1">u: increase layer speed (for current layer)</p>
+<p class="p1">j: decrease layer speed</p>
+<p class="p1">m: mute selected blob (blob turns into red)</p>
+<p class="p1">ctrl + s: enter new layer speed value from a window</p>
+<p class="p1">ctrl + w: enter new wMul value from a window</p>
+<p class="p1">ctrl + h: enter new hMul value from a window</p>
+<p class="p2"><br></p>
+<p class="p1">s: If you are holding the s key while removing a finger from the touchpad, the gesture of the removed finger starts looping. The blob turns green (if not selected. If it is selected, it will be blue).</p>
+<p class="p14"><b></b><br></p>
+<p class="p13"><b>Accessing Instance and Class Variables</b></p>
+<p class="p7"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>images</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Returns the SCImage instances of the layers.</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>widthMul_(arg1)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>widthMul</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>wMul value for initialization. wMul is the multiplier for touch width.</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>buffers</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Sound buffers.</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>heightMul_(arg1)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>heightMul</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>hMul value for initialization. hMul is the multiplier for touch height.<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p13"><b>Doing Some Task</b></p>
+<p class="p5"><br></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>startAnim</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Starts the FingerNeedle engine.</p>
+<p class="p5"><br></p>
+<p class="p5"><br></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>stopAnim</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Stops the FingerNeedle engine.</p>
+<p class="p5"><br></p>
+<p class="p13"><b>Random usage notes:</b></p>
+<p class="p14"><b></b><br></p>
+<p class="p1">The keyboard key you will mostly use will be the s key which is used to record gestures. And the arrow keys for selecting blobs and switching layers.</p>
+<p class="p2"><br></p>
+<p class="p1">A touched blob is yellow. When it is recorded with s, and if it is running autonomously, it will be green. If it is selected, it will be blue.</p>
+<p class="p2"><br></p>
+<p class="p1">I suggest you try using the instrument with my FreeSound Quark. That way, you can download sounds from the freesound database based on keywords you supply randomly and try to be creative with what you get.</p>
+<p class="p2"><br></p>
+<p class="p1">I'll add more if something interesting pops up but that's all for now. Have Fun!</p>
+<p class="p2"><br></p>
+<p class="p1">Batuhan Bozkurt 2010</p>
+</body>
+</html>
