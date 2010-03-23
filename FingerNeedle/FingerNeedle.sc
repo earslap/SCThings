@@ -1,3 +1,5 @@
+//Batuhan Bozkurt 2009-2010
+
 FingerNeedle
 {
 	var <win, <>images, <>buffers, <blobs, <blobIDList, <selectionList, <>widthMul, <>heightMul, imagesPixels,
