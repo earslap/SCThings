@@ -1,7 +1,7 @@
 MultiTouchPad
 {
 	classvar <responder, <fingersDict, <activeBlobs, <>setAction, <>touchAction, <>untouchAction,
-		guiOn, guiWin, <isRunning, <pid;
+		<guiOn, <guiWin, <isRunning, <pid, <stopFunc;
 	
 	
 	*initClass
@@ -11,6 +11,7 @@ MultiTouchPad
 		activeBlobs = List.new;
 		guiOn = false;
 		isRunning = false;
+		stopFunc = { this.stop; };
 	}
 	
 	*start
@@ -44,6 +45,7 @@ MultiTouchPad
 		{
 			"MultiTouchPad is already active and running. Try MultiTouchPad.start(\\force)".error;
 		});
+		ShutDown.add(stopFunc);
 	}
 	
 	*stop
