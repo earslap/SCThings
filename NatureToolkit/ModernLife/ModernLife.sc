@@ -6,7 +6,7 @@ ModernLife
 	oldElapsedTime, historySums;
 	
 	*new
-	{|argNumDivs = 50, argWinSize = 500, argHistorySize = 50|
+	{|argNumDivs = 50, argWinSize = 500, argHistorySize = 1|
 	
 		^super.new.init(argNumDivs, argWinSize, argHistorySize);
 	}
@@ -29,7 +29,7 @@ ModernLife
 		hiThresh = 0.999;
 		
 		firstRule = [[2, 3], [3]];
-		secondRule = [[3, 4], [1]];
+		secondRule = [[2, 3], [3]];
 		
 		userFunc = {};
 		
@@ -42,7 +42,7 @@ ModernLife
 		
 		oldElapsedTime = Main.elapsedTime;
 		
-		win = Window("CA", Rect(300, 300, sideLen, sideLen), resizable: false).onClose_({ playRoutine.stop; });
+		win = Window("CA", Rect(5, 5, sideLen, sideLen), resizable: false).onClose_({ playRoutine.stop; });
 		win.view.keyDownAction_
 			({|...args| 
 				
@@ -80,7 +80,8 @@ ModernLife
 						view.refresh;
 					}
 				)
-			});
+			})
+		.onClose_({ playRoutine.stop; });
 			
 		view = UserView(win, win.view.bounds)
 			.clearOnRefresh_(false)
@@ -223,7 +224,7 @@ ModernLife
 			
 		});
 		
-		userFunc.value(nextGrid, history, averages, population);
+		userFunc.value(nextGrid, population, history, averages);
 		
 		currentGrid = nextGrid.deepCopy;
 		counter = (counter + 1) % historySize;
@@ -241,7 +242,7 @@ ModernLife
 		secondRule = argRuleString.split($/).collect({|item| item.as(Array).collect({|num| num.asString.asInteger; }) });
 	}
 	
-	setBothRules
+	setRule
 	{|argRuleString|
 	
 		firstRule = argRuleString.split($/).collect({|item| item.as(Array).collect({|num| num.asString.asInteger; }) });
@@ -389,5 +390,34 @@ ModernLife
 		});
 	}
 	
+	hideGui
+	{
+		win.visible_(false);
+	}
 	
+	showGui
+	{
+		win.visible_(true);
+	}
+	
+	play
+	{
+		if(isPlaying.not,
+		{
+			playRoutine.reset;
+			playRoutine.play(SystemClock);
+			isPlaying = true;
+			oldElapsedTime = Main.elapsedTime;
+		}); 
+	}
+	
+	stop
+	{
+		if(isPlaying,
+		{
+			currentFps = 0;
+			playRoutine.stop;
+			isPlaying = false;
+		});
+	}
 }

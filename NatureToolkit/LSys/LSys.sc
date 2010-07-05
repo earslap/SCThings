@@ -104,6 +104,7 @@ LSys
 		//tempOrder.postln;
 		
 		parsedRules = this.makeRules(tempOrder);
+		//parsedRules = this.makeRules(rules); //unordered
 		
 		this.levelRules;
 		
@@ -434,7 +435,7 @@ LSys
 	
 							if(rItem[0].isNil.or(leftMatched == true) and: { rItem[2].isNil.or(rightMatched == true) },
 							{
-								newString.add(this.returnMatched(aCnt, rItem));
+								newString.add(this.returnMatched(aCnt, rItem, [leftMatched, rightMatched]));
 								ruleApplied = true;
 								aBreak.value;
 							});					
@@ -553,15 +554,21 @@ LSys
 	}
 	
 	returnMatched
-	{|argIndex, argRule|
+	{|argIndex, argRule, lrState|
 	
 		var old = parsedCurAxiom[argIndex];
+		var funcArgs = List.new;
+		
 		if(old.species == Symbol,
 		{
 			^argRule[3];
 		},
 		{
-			^(environ.use({argRule[3].value(*funcValsDict.at(argIndex)).asString}));
+			if(lrState[0], { funcArgs.add(funcValsDict.at(argIndex - 1)); }); //add left args
+			funcArgs.add(funcValsDict.at(argIndex));
+			if(lrState[1], { funcArgs.add(funcValsDict.at(argIndex + 1)); }); //add right args
+			
+			^(environ.use({argRule[3].value(*funcArgs.flat).asString}));
 		});
 	}
 	
